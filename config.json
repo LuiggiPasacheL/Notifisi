@@ -2,5 +2,9 @@
     "page": {
         "domain": "https://sistemas.unmsm.edu.pe",
         "path": "/site/index.php"
+    },
+    "database": {
+        "name": "news.db",
+        "table": "news"
     }
 }

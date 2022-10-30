@@ -2,6 +2,8 @@
 from bs4 import BeautifulSoup
 from news import News
 
+import sqlite3
+
 import requests
 import json
 
@@ -31,4 +33,18 @@ total_news = len(titles)
 news = []
 for news_index in range(total_news):
     news.append(News(titles[news_index], descriptions[news_index], links[news_index]))
+
+conn = sqlite3.connect(config['database']['name'])
+
+c = conn.cursor()
+
+c.execute(f"""
+          CREATE TABLE IF NOT EXISTS {config['database']['table']} (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT NOT NULL,
+            link TEXT NOT NULL,
+            description TEXT NOT NULL
+          );
+          """)
+
 
