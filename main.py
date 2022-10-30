@@ -1,10 +1,15 @@
 
 from bs4 import BeautifulSoup
-import requests
 from news import News
 
-domain = "https://sistemas.unmsm.edu.pe"
-path = "/site/index.php"
+import requests
+import json
+
+with open("config.json", "r") as f:
+    config = json.load(f)
+
+domain = config['page']['domain']
+path = config['page']['path']
 
 url = domain + path
 
