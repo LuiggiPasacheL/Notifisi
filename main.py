@@ -47,4 +47,15 @@ c.execute(f"""
           );
           """)
 
+c.execute(f"""
+          INSERT INTO {config['database']['table']} (title, link, description) VALUES (?, ?, ?);
+          """, (news[0].title, news[0].link, news[0].description)
+          )
 
+# conn.commit()
+
+nw = c.execute(f"""
+          SELECT * FROM {config['database']['table']};
+          """).fetchall()
+
+print(nw)
