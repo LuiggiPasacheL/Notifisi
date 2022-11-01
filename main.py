@@ -1,11 +1,10 @@
 
 from bs4 import BeautifulSoup
-from news import News
-
-import sqlite3
 
 import requests
 import json
+
+from models.News import News
 
 with open("config.json", "r") as f:
     config = json.load(f)
@@ -34,28 +33,4 @@ news = []
 for news_index in range(total_news):
     news.append(News(titles[news_index], descriptions[news_index], links[news_index]))
 
-conn = sqlite3.connect(config['database']['name'])
-
-c = conn.cursor()
-
-c.execute(f"""
-          CREATE TABLE IF NOT EXISTS {config['database']['table']} (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title TEXT NOT NULL,
-            link TEXT NOT NULL,
-            description TEXT NOT NULL
-          );
-          """)
-
-c.execute(f"""
-          INSERT INTO {config['database']['table']} (title, link, description) VALUES (?, ?, ?);
-          """, (news[0].title, news[0].link, news[0].description)
-          )
-
-# conn.commit()
-
-nw = c.execute(f"""
-          SELECT * FROM {config['database']['table']};
-          """).fetchall()
-
-print(nw)
+print(news)
