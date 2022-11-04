@@ -3,15 +3,12 @@ import json
 
 class NewsStorage:
 
-    def __init__(self, incoming_news = []):
+    def __init__(self):
         with open("config.json", "r") as f:
             config = json.load(f)
-        self.name_file = config['file']
 
-        if incoming_news:
-            self.news = incoming_news
-        else:
-            self.load_news()
+        self.name_file = config['file']
+        self.news = []
 
     def get_count_new_news(self, incoming_news) -> int:
         count_news = 0
