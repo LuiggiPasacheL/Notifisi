@@ -11,4 +11,11 @@ class News:
         return f"""
         title: {self.title}
         description: {self.description}
+        link: {self.link}
         """
+
+    def __eq__(self, other):
+        if isinstance(other, News):
+                return self.title == other.title
+        return False
+

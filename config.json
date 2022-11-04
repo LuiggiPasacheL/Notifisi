@@ -3,8 +3,6 @@
         "domain": "https://sistemas.unmsm.edu.pe",
         "path": "/site/index.php"
     },
-    "database": {
-        "name": "news.db",
-        "table": "news"
-    }
+    "file": "news_data.pkl",
+    "time": "08:30"
 }

@@ -1,26 +1,41 @@
+import pickle
+import json
 
 class NewsStorage:
 
-    def __init__(self):
-        self.news = []
+    def __init__(self, incoming_news = []):
+        with open("config.json", "r") as f:
+            config = json.load(f)
+        self.name_file = config['file']
+
+        if incoming_news:
+            self.news = incoming_news
+        else:
+            self.load_news()
 
     def get_count_new_news(self, incoming_news) -> int:
         count_news = 0
-        for old_news in self.news:
-            for new_news in incoming_news:
-                if old_news == new_news:
-                    return count_news
-                else:
-                    count_news += 1
-        return count_news
+        last_save_news = self.news[0]
 
-    def insert_news(self, incoming_news):
-        self.news = incoming_news
+        for new_news in incoming_news:
+            if last_save_news == new_news:
+                return count_news
+            else:
+                count_news += 1
+
+        return count_news
 
     def replace_news(self, quantity, incoming_news):
         for _ in range(quantity):
             self.news.pop()
+        
+        for index in reversed(range(quantity)):
+            self.news.insert(0, incoming_news[index])
 
-        for _ in range(quantity):
-            self.news.append(incoming_news.pop())
+    def save_news(self):
+        with open(self.name_file, 'wb') as save_file:
+            pickle.dump(self.news, save_file, pickle.HIGHEST_PROTOCOL)
 
+    def load_news(self):
+        with open(self.name_file, 'rb') as load_file:
+            self.news = pickle.load(load_file)

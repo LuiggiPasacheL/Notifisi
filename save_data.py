@@ -50,13 +50,8 @@ def get_news(html):
 
 incoming_news = get_news(html_doc)
 
-storage = NewsStorage()
+incoming_news[0].title = "hola que tal"
 
-count_new_news = storage.get_count_new_news(incoming_news)
+storage = NewsStorage(incoming_news)
 
-if count_new_news > 0:
-    storage.replace_news(count_new_news, incoming_news)
-
-print("-----------------------------------------------------")
-print(f"Cantidad de noticias: {len(storage.news)}")
-print(f"Cantidad de noticias nuevas: {count_new_news}")
+storage.save_news()
