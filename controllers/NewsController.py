@@ -54,10 +54,11 @@ def find_news(domain, path):
 
     return incoming_news
 
-def compare_news(storage, incoming_news):
+def compare_and_notify_news(storage, incoming_news):
     count_new_news = storage.get_count_new_news(incoming_news)
 
-    if count_new_news >= 0: # only for tests count_new_news must be different to zero
+    if count_new_news > 0:
         storage.replace_news(count_new_news, incoming_news)
         storage.save_news()
         notify("We found news", f"{count_new_news} news founded")
+    notify("No news found", "")

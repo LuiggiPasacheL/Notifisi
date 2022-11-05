@@ -1,5 +1,9 @@
 
 import json
+from datetime import datetime
+
+now = datetime.now()
+current_time = now.strftime("%H:%M")
 
 config = {}
 
@@ -13,7 +17,7 @@ except:
             "path": "/site/index.php"
         },
         "file": "news_data.pkl",
-        "time": "20:00"
+        "time": current_time
     }
 
     json_config = json.dumps(config)

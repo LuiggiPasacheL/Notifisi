@@ -1,8 +1,8 @@
 
 from notifypy import Notify
+notification = Notify()
 
 def notify(title, message):
-    notification = Notify()
     notification.title = title
     notification.message = message
     notification.send()
