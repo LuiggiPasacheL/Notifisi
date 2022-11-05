@@ -5,9 +5,11 @@ import pickle
 class NewsStorage:
 
     def __init__(self):
-
         self.name_file = config['file']
         self.news = []
+
+    def insert_news(self, incoming_news):
+        self.news = incoming_news
 
     def get_count_new_news(self, incoming_news) -> int:
         count_news = 0
@@ -35,3 +37,13 @@ class NewsStorage:
     def load_news(self):
         with open(self.name_file, 'rb') as load_file:
             self.news = pickle.load(load_file)
+
+    def renew_news(self, incoming_news):
+        new_news = self.get_count_new_news(incoming_news)
+
+        if new_news > 0:
+            self.replace_news(new_news, incoming_news)
+            self.save_news()
+            
+        return new_news
+

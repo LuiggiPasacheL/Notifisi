@@ -54,11 +54,8 @@ def find_news(domain, path):
 
     return incoming_news
 
-def compare_and_notify_news(storage, incoming_news):
-    count_new_news = storage.get_count_new_news(incoming_news)
-
+def renew_and_notify_news(storage, incoming_news):
+    count_new_news = storage.renew_news(incoming_news)
     if count_new_news > 0:
-        storage.replace_news(count_new_news, incoming_news)
-        storage.save_news()
-        notify("We found news", f"{count_new_news} news founded")
-    notify("No news found", "")
+        notify("Se encontraron noticias", f"{count_new_news} noticias encontradas")
+    notify("No se encontraron noticias", "")
