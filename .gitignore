@@ -1,4 +1,12 @@
+
+# Development files
 venv/*
 __pycache__/
-*pkl
+
+# Config files
+*.pkl
 config.json
+
+# Build files
+build/*
+dist/*
