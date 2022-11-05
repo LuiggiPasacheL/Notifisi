@@ -1,8 +1,8 @@
 {
     "page": {
-        "domain": "https://sistemas.unmsm.edu.pe",
+        "domain": "https://sistemas.unmsm.edu.pe", 
         "path": "/site/index.php"
-    },
-    "file": "news_data.pkl",
-    "time": "17:30"
+    }, 
+    "file": "news_data.pkl", 
+    "time": "22:01"
 }
