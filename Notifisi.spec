@@ -7,7 +7,7 @@ block_cipher = None
 a = Analysis(
     ['main.py'],
     pathex=[],
-    binaries=[('assets/logo.png', 'assets')],
+    binaries=[],
     datas=[('assets/logo.png', 'assets')],
     hiddenimports=[],
     hookspath=[],
@@ -41,5 +41,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['assets\\logo.png'],
+    icon=['assets/logo.png'],
 )
