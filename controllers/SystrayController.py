@@ -1,26 +1,19 @@
 
 import pystray
 from PIL import Image
-from config import *
+import config
 from controllers.NewsController import find_news, renew_and_notify_news
-import os
-import sys
 import webbrowser
 
-try:
-    base_path = sys._MEIPASS
-except Exception:
-    base_path = os.path.abspath(".")
-image_path = os.path.join(base_path, 'assets', 'logo.png')
 
 def create_systray(storage):
-    image = Image.open(image_path)
+    image = Image.open(config.image_path)
 
     def on_click(icon, item):
         if str(item) == "Abrir noticias":
-            webbrowser.open(domain + path + '#tns1-item1')
+            webbrowser.open(config.domain + config.path + '#tns1-item1')
         elif str(item) == "Recargar noticias":
-            incoming_news = find_news(domain, path)
+            incoming_news = find_news(config.domain, config.path)
             renew_and_notify_news(storage, incoming_news)
         elif str(item) == "Salir":
             icon.stop()

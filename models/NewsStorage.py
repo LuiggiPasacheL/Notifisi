@@ -1,11 +1,10 @@
-from config import *
-
+import config
 import pickle
 
 class NewsStorage:
 
     def __init__(self):
-        self.name_file = file
+        self.name_file = config.file
         self.news = []
 
     def insert_news(self, incoming_news):
