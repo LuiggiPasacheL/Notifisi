@@ -37,25 +37,34 @@ def create_news_array(titles, descriptions, links):
 def get_html(domain, path):
     url = domain + path
 
-    response = requests.get(url, verify=False)
-    html = response.text
+    try:
+        response = requests.get(url, verify=False)
+        html = response.text
+    except:
+        html = None
 
     return html
 
 def find_news(domain, path):
     html = get_html(domain, path)
-    soup = BeautifulSoup(html, 'html.parser')
+    
+    try:
+        soup = BeautifulSoup(html, 'html.parser')
 
-    titles = get_titles(soup)
-    descriptions = get_descriptions(soup)
-    links = get_links(soup, domain)
+        titles = get_titles(soup)
+        descriptions = get_descriptions(soup)
+        links = get_links(soup, domain)
 
-    incoming_news = create_news_array(titles, descriptions, links)
+        incoming_news = create_news_array(titles, descriptions, links)
+    except:
+        notify("Ha ocurrido un error", "Obteniendo las noticias")
+        incoming_news = []
 
     return incoming_news
 
 def renew_and_notify_news(storage, incoming_news):
-    count_new_news = storage.renew_news(incoming_news)
-    if count_new_news > 0:
-        notify("Se encontraron noticias", f"{count_new_news} noticias encontradas")
-    notify("No se encontraron noticias", "")
+    if incoming_news:
+        count_new_news = storage.renew_news(incoming_news)
+        if count_new_news > 0:
+            notify("Se encontraron noticias", f"{count_new_news} noticias encontradas")
+        notify("No se encontraron noticias", "")
