@@ -13,9 +13,7 @@ except Exception:
     base_path = os.path.abspath(".")
 image_path = os.path.join(base_path, 'assets', 'logo.png')
 
-def create_stray(storage):
-    domain = config['page']['domain']
-    path = config['page']['path']
+def create_systray(storage):
     image = Image.open(image_path)
 
     def on_click(icon, item):
