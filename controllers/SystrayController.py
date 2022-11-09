@@ -10,8 +10,10 @@ def create_systray(storage):
     image = Image.open(config.image_path)
 
     def on_click(icon, item):
-        if str(item) == "Abrir noticias":
+        if str(item) == "Abrir todas las noticias":
             webbrowser.open(config.domain + config.path + '#tns1-item1')
+        elif str(item) == "Abrir última noticia":
+            webbrowser.open(storage.news[0].link)
         elif str(item) == "Recargar noticias":
             incoming_news = find_news(config.domain, config.path)
             renew_and_notify_news(storage, incoming_news)
@@ -21,7 +23,10 @@ def create_systray(storage):
             print("Feature not supported")
 
     icon = pystray.Icon("Notifisi", image, menu=pystray.Menu(
-        pystray.MenuItem("Abrir noticias", on_click),
+        pystray.MenuItem("Abrir noticias", pystray.Menu(
+            pystray.MenuItem("Abrir todas las noticias", on_click),
+            pystray.MenuItem("Abrir última noticia", on_click),
+        )),
         pystray.MenuItem("Recargar noticias", on_click),
         pystray.MenuItem("Salir", on_click)
     ))
