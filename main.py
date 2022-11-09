@@ -7,33 +7,31 @@ import threading
 
 from models.NewsStorage import NewsStorage
 from models.Notifier import notify
-from controllers.TrayController import create_stray
+from controllers.SystrayController import create_systray
 from controllers.NewsController import find_news, renew_and_notify_news
 
-domain = config['page']['domain']
-path = config['page']['path']
+if __name__ == "__main__":
+    storage = NewsStorage()
 
-storage = NewsStorage()
-
-try:
-    storage.load_news()
-except:
-    storage.insert_news(find_news(domain, path))
-    storage.save_news()
-    notify("Se encontraron noticias", f"{len(storage.news)} noticias encontradas")
-
-def review_news(domain, path):
-    incoming_news = find_news(domain, path)
     try:
-        schedule.every().day.at(config["time"]).do(renew_and_notify_news,storage=storage, incoming_news=incoming_news).tag("renew_news")
+        storage.load_news()
     except:
-        schedule.every().day.do(renew_and_notify_news,storage=storage, incoming_news=incoming_news).tag("renew_news")
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+        storage.insert_news(find_news(domain, path))
+        storage.save_news()
+        notify("Se encontraron noticias", f"{len(storage.news)} noticias encontradas")
 
-schedule_thread = threading.Thread(target=review_news, args=(domain, path,), daemon=True)
-schedule_thread.start()
+    def review_news(domain, path):
+        incoming_news = find_news(domain, path)
+        try:
+            schedule.every().day.at(config["time"]).do(renew_and_notify_news,storage=storage, incoming_news=incoming_news).tag("renew_news")
+        except schedule.ScheduleValueError:
+             schedule.every().day.do(renew_and_notify_news,storage=storage, incoming_news=incoming_news).tag("renew_news")
+        while True:
+            schedule.run_pending()
+            time.sleep(1)
 
-icon = create_stray(storage)
-icon.run()
+    schedule_thread = threading.Thread(target=review_news, args=(domain, path,), daemon=True)
+    schedule_thread.start()
+
+    icon = create_systray(storage)
+    icon.run()
