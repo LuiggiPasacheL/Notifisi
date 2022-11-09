@@ -1,6 +1,6 @@
 
 from bs4 import BeautifulSoup
-from models.Notifier import notify
+from controllers.NotifyController import notify
 from models.News import News
 import requests
 

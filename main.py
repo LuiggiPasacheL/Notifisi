@@ -6,7 +6,7 @@ import time
 import threading
 
 from models.NewsStorage import NewsStorage
-from models.Notifier import notify
+from controllers.NotifyController import notify
 from controllers.SystrayController import create_systray
 from controllers.NewsController import find_news, renew_and_notify_news
 
