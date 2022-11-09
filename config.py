@@ -22,7 +22,7 @@ except:
         "time": current_time
     }
 
-    json_config = json.dumps(config)
+    json_config = json.dumps(config, indent=4)
 
     with open("config.json", "w") as f:
         f.write(json_config)
