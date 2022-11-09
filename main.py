@@ -10,8 +10,8 @@ from controllers.NotifyController import notify
 from controllers.SystrayController import create_systray
 from controllers.NewsController import find_news, renew_and_notify_news
 
-def review_news(domain, path):
-    incoming_news = find_news(domain, path)
+def review_news():
+    incoming_news = find_news(config.domain, config.path)
     try:
         schedule.every().day.at(config.time).do(renew_and_notify_news,storage=storage, incoming_news=incoming_news).tag("renew_news")
     except schedule.ScheduleValueError:
@@ -30,7 +30,7 @@ if __name__ == "__main__":
         storage.save_news()
         notify("Se encontraron noticias", f"{len(storage.news)} noticias encontradas")
 
-    schedule_thread = threading.Thread(target=review_news, args=(config.domain, config.path,), daemon=True)
+    schedule_thread = threading.Thread(target=review_news, daemon=True)
     schedule_thread.start()
 
     icon = create_systray(storage)
