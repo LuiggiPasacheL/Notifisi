@@ -24,3 +24,8 @@ except:
 
     with open("config.json", "w") as f:
         f.write(json_config)
+
+domain = config['page']['domain']
+path = config['page']['path']
+file = config['file']
+time = config['time']
