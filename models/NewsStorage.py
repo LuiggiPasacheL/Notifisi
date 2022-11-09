@@ -12,10 +12,10 @@ class NewsStorage:
 
     def get_count_new_news(self, incoming_news) -> int:
         count_news = 0
-        last_save_news = self.news[0]
+        last_saved_news = self.news[0]
 
         for new_news in incoming_news:
-            if last_save_news == new_news:
+            if last_saved_news == new_news:
                 return count_news
             else:
                 count_news += 1
