@@ -1,5 +1,5 @@
-# -*- mode: python ; coding: utf-8 -*-
 
+# -*- mode: python ; coding: utf-8 -*-
 
 block_cipher = None
 
@@ -41,5 +41,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['assets\\logo.png'],
+    icon=['assets/logo.png'],
 )
