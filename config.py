@@ -6,7 +6,10 @@ from datetime import datetime
 class Config:
 
     def __init__(self):
-        self.config_path = os.path.join("config.json")
+        if not os.path.exists("data"):
+            dir_path = os.path.join("data")
+            os.mkdir(dir_path)
+        self.config_path = os.path.join("data", "config.json")
         self.current_time = datetime.now().strftime("%H:%M")
         try:
             self.base_path = sys._MEIPASS
