@@ -25,6 +25,7 @@ class Config:
                 data = json.load(f)
         self.domain = data["page"]["domain"]
         self.path = data["page"]["path"]
+        self.url = self.domain + self.path
         self.data_path = os.path.join("data", data["file_name"] + ".json")
         self.time = data['time']
 

@@ -8,7 +8,6 @@ class Storage:
 
     def __init__(self) -> None:
         self.conf = Config()
-        self.url = self.conf.domain + self.conf.path
         try:
             with open(self.conf.data_path, "r") as json_file:
                 self.news = [
@@ -44,7 +43,7 @@ class Storage:
             json.dump(news_dict_list, json_file)
 
     def __get_response(self):
-        return requests.get(self.url, verify=False)
+        return requests.get(self.conf.url, verify=False, timeout=10)
 
     def __load_news(self):
         response = self.__get_response()

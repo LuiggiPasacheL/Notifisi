@@ -1,23 +1,17 @@
 
 from Controller.News_controller import NewsController
+from Model.Storage import Storage
+from View.systray_view import SystrayView
 
 def main():
 
-    news_controller = NewsController()
-
-    news = news_controller.get_news()
-
-    for index, news in enumerate(news):
-        print(f"{index + 1}. {news.title}")
-
-    news = news_controller.update_news()
-
-    print("-----------------------------------------------")
-    
-    for index, news in enumerate(news):
-        print(f"{index + 1}. {news.title}")
-
+    systray_view = SystrayView()
+    storage = Storage()
+    news_controller = NewsController(systray_view, storage)
+    news_controller.create_systray()
+    news_controller.update_news()
     news_controller.save_news()
 
 if __name__ == '__main__':
     main()
+
