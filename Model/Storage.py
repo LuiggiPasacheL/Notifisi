@@ -2,19 +2,15 @@ import json
 import requests
 from bs4 import BeautifulSoup
 from .News import News
-import os
+from config import Config
 
 class Storage:
 
-    domain = "https://sistemas.unmsm.edu.pe"
-    path = "/site/index.php"
-    url = domain + path
-
-    dir_file = os.path.join("data", "data.json")
-
     def __init__(self) -> None:
+        self.conf = Config()
+        self.url = self.conf.domain + self.conf.path
         try:
-            with open(self.dir_file, "r") as json_file:
+            with open(self.conf.data_path, "r") as json_file:
                 self.news = [
                         News(obj["title"], obj["description"], obj["link"]) 
                         for obj in json.load(json_file)
@@ -42,13 +38,13 @@ class Storage:
 
         return self.news, diff 
 
-    def notify_news(self):
-        pass
-
     def save_news(self):
         news_dict_list = [news.to_dict() for news in self.news]
-        with open(self.dir_file, "w") as json_file:
+        with open(self.conf.data_path, "w") as json_file:
             json.dump(news_dict_list, json_file)
+
+    def __get_response(self):
+        return requests.get(self.url, verify=False)
 
     def __load_news(self):
         response = self.__get_response()
@@ -60,12 +56,11 @@ class Storage:
 
     def __create_news(self, titles, descriptions, links):
         result = []
+
         for title, description, link in zip(titles, descriptions, links):
             result.append(News(title, description, link))
-        return result
 
-    def __get_response(self):
-        return requests.get(self.url, verify=False)
+        return result
 
     def __get_info(self, html):
         soup = BeautifulSoup(html, 'html.parser')
@@ -75,7 +70,7 @@ class Storage:
 
         titles = list(map(lambda title_tag: title_tag.a.string, titles_tag))
         descriptions = list(map(lambda descriptions_tag: descriptions_tag.string, descriptions_tag))
-        links = list(map(lambda title_tag: self.domain + title_tag.a['href'], titles_tag))
+        links = list(map(lambda title_tag: self.conf.domain + title_tag.a['href'], titles_tag))
 
         return titles, descriptions, links
 
