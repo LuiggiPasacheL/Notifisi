@@ -6,8 +6,8 @@ from config import Config
 
 class Storage:
 
-    def __init__(self) -> None:
-        self.conf = Config()
+    def __init__(self, config: Config) -> None:
+        self.conf = config
         try:
             with open(self.conf.data_path, "r") as json_file:
                 self.news = [

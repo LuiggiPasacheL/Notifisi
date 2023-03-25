@@ -7,8 +7,8 @@ from config import Config
 
 class SystrayView:
 
-    def __init__(self) -> None:
-        self.conf = Config()
+    def __init__(self, config: Config) -> None:
+        self.conf = config
         self.image = Image.open(self.conf.image_path)
         self.icon = pystray.Icon("Notifisi", self.image)
 
