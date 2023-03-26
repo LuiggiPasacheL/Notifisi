@@ -10,12 +10,11 @@ def main():
 
     systray_view = SystrayView(conf)
     storage = Storage(conf)
-
     news_controller = NewsController(systray_view, storage)
-    news_controller.create_systray()
+
+    news_controller.run()
     def update():
         news_controller.update_news()
-        news_controller.save_news()
     try:
         schedule.every().day.at(conf.time).do(update).tag("update_news")
         update()

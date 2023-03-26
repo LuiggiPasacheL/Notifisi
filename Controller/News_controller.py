@@ -8,22 +8,19 @@ class NewsController:
         self.model = model
         self.view = view
 
-    def create_systray(self):
-        self.view.create_menu(self)
-        self.view.run()
-
     def get_news(self):
         return self.model.news
 
     def update_news(self):
         try:
-            news_list, diff = self.model.update_news()
+            diff = self.model.update_news()
+            self.model.save_news()
             notify_news(diff)
         except:
             notify_error("Error al obtener las noticias")
             return []
-        self.view.update_menu(news_list)
-        return news_list
+        self.view.update_menu(self)
 
-    def save_news(self):
-        self.model.save_news()
+    def run(self):
+        self.view.create_menu(self)
+        self.view.run()

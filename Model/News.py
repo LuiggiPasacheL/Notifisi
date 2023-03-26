@@ -1,4 +1,7 @@
 
+import webbrowser
+
+
 class News:
 
     def __init__(self, title: str, description: str, link: str):
@@ -11,6 +14,9 @@ class News:
             return title[:lenght-3] + ("..." if len(title) > lenght else "")
         lenght = 40
         return short_title(self.title, lenght)
+
+    def open_link(self):
+        webbrowser.open(self.link)
 
     def to_dict(self):
         return {

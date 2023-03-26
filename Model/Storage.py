@@ -22,20 +22,8 @@ class Storage:
         incoming_news = incoming_news[0:5]
 
         diff = len(set(incoming_news) - set(self.news))
-        if len(self.news) == 0:
-            self.news = incoming_news
-        else:
-            diff_news = incoming_news[0:diff]
-            diff_news = diff_news[::-1]
-
-            self.news = self.news[::-1]
-            self.news.extend(diff_news)
-            self.news = self.news[::-1]
-
-            for _ in range(diff):
-                self.news.pop()
-
-        return self.news, diff 
+        self.news = incoming_news
+        return diff 
 
     def save_news(self):
         news_dict_list = [news.to_dict() for news in self.news]
@@ -57,19 +45,19 @@ class Storage:
         result = []
 
         for title, description, link in zip(titles, descriptions, links):
-            result.append(News(title, description, link))
+            news = News(title, description, link)
+            result.append(news)
 
         return result
 
     def __get_info(self, html):
         soup = BeautifulSoup(html, 'html.parser')
 
-        titles_tag = soup.find_all('h4', 'mfp_carousel_title')
-        descriptions_tag = soup.find_all('p', 'mfp_carousel_introtext') 
+        news_tags = soup.find_all('div', 'mfp_carousel_item')
 
-        titles = list(map(lambda title_tag: title_tag.a.string, titles_tag))
-        descriptions = list(map(lambda descriptions_tag: descriptions_tag.string, descriptions_tag))
-        links = list(map(lambda title_tag: self.conf.domain + title_tag.a['href'], titles_tag))
+        titles = [ news_tag.div.h4.a.string for news_tag in news_tags]
+        descriptions = [ news_tag.div.p.string for news_tag in news_tags ]
+        links = [ self.conf.domain + news_tag.div.h4.a['href'] for news_tag in news_tags]
 
         return titles, descriptions, links
 

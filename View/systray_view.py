@@ -13,24 +13,26 @@ class SystrayView:
         self.icon = pystray.Icon("Notifisi", self.image)
 
     def create_menu(self, controller):
+        news_list = controller.get_news()
+
+        news_menu_items = [
+                           pystray.MenuItem(news_list[0].get_short_title(), lambda _ : news_list[0].open_link()),
+                           pystray.MenuItem(news_list[1].get_short_title(), lambda _ : news_list[1].open_link()),
+                           pystray.MenuItem(news_list[2].get_short_title(), lambda _ : news_list[2].open_link()),
+                           pystray.MenuItem(news_list[3].get_short_title(), lambda _ : news_list[3].open_link()),
+                           pystray.MenuItem(news_list[4].get_short_title(), lambda _ : news_list[4].open_link())
+                           ]
+
         self.icon.menu = pystray.Menu(
-            pystray.MenuItem("Abrir Noticias", 
-                lambda _ : webbrowser.open(self.conf.url + '#tns1-item1')),
-            pystray.MenuItem("Recargar Noticias", 
-                             lambda _ : controller.update_news()),
-            pystray.MenuItem("Salir", 
-                lambda _ : self.icon.stop())
+            pystray.MenuItem("Abrir Noticias", lambda _ : webbrowser.open(self.conf.url + '#tns1-item1')),
+            pystray.MenuItem("Noticias", pystray.Menu(*news_menu_items)),
+            pystray.MenuItem("Recargar Noticias", lambda _ : controller.update_news()),
+            pystray.MenuItem("Salir", lambda _ : self.icon.stop())
         )
 
-    def update_menu(self, news_list):
-        # TODO: Implement
-        # def update():
-        #     self.menu.clear()
-        #     for news in news_list:
-        #         self.icon.menu.append(news.title, None)
-        # thread = threading.Thread(target=update)
-        # thread.start()
-        pass
+    def update_menu(self, controller):
+        self.create_menu(controller)
+        self.icon.update_menu()
 
     def run(self):
         def execute_systray():
