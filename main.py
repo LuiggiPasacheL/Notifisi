@@ -17,7 +17,6 @@ def main():
         news_controller.update_news()
     try:
         schedule.every().day.at(conf.time).do(update).tag("update_news")
-        update()
     except:
         print("No se pudo sincronizar")
 

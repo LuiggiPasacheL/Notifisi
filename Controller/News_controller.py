@@ -9,6 +9,8 @@ class NewsController:
         self.view = view
 
     def get_news(self):
+        if len(self.model.news) == 0:
+            self.update_news()
         return self.model.news
 
     def update_news(self):
