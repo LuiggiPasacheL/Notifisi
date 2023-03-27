@@ -14,14 +14,17 @@ class SystrayView:
 
     def create_menu(self, controller):
         news_list = controller.get_news()
+        
+        def create_menu_item(news_item):
+            def open_link():
+                news_item.open_link()
+            return lambda _ : open_link()
 
-        news_menu_items = [
-                           pystray.MenuItem(news_list[0].get_short_title(), lambda _ : news_list[0].open_link()),
-                           pystray.MenuItem(news_list[1].get_short_title(), lambda _ : news_list[1].open_link()),
-                           pystray.MenuItem(news_list[2].get_short_title(), lambda _ : news_list[2].open_link()),
-                           pystray.MenuItem(news_list[3].get_short_title(), lambda _ : news_list[3].open_link()),
-                           pystray.MenuItem(news_list[4].get_short_title(), lambda _ : news_list[4].open_link())
-                           ]
+        news_menu_items = []
+        for news_index in range(self.conf.systray_news):
+            news_menu_items.append(
+                    pystray.MenuItem(news_list[news_index].get_short_title(), create_menu_item(news_list[news_index]))
+                )
 
         self.icon.menu = pystray.Menu(
             pystray.MenuItem("Abrir Noticias", lambda _ : webbrowser.open(self.conf.url + '#tns1-item1')),

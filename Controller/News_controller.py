@@ -9,7 +9,7 @@ class NewsController:
         self.view = view
 
     def get_news(self):
-        if len(self.model.news) == 0:
+        if len(self.model.news) == 0 or len(self.model.news) < self.model.conf.systray_news:
             self.update_news()
         return self.model.news
 

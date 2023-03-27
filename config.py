@@ -22,15 +22,16 @@ class Config:
         try:
             with open(self.config_path, 'r') as f:
                 data = json.load(f)
+            self.domain = data["page"]["domain"]
+            self.path = data["page"]["path"]
+            self.url = self.domain + self.path
+            self.systray_news = int(data["systray_news"])
+            self.data_path = os.path.join("data", data["file_name"] + ".json")
+            self.time = data['time']
         except:
             self.save()
             with open(self.config_path, 'r') as f:
                 data = json.load(f)
-        self.domain = data["page"]["domain"]
-        self.path = data["page"]["path"]
-        self.url = self.domain + self.path
-        self.data_path = os.path.join("data", data["file_name"] + ".json")
-        self.time = data['time']
 
     def save(self):
         with open(self.config_path, 'w') as f:
@@ -39,6 +40,7 @@ class Config:
                     "domain": "https://sistemas.unmsm.edu.pe",
                     "path": "/site/index.php"
                 },
+                "systray_news": 5,
                 "file_name": "data",
                 "time": self.current_time
             } , f)

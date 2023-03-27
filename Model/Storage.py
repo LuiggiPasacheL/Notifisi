@@ -19,7 +19,7 @@ class Storage:
 
     def update_news(self):
         incoming_news = self.__load_news()
-        incoming_news = incoming_news[0:5]
+        incoming_news = incoming_news[0:self.conf.systray_news]
 
         diff = len(set(incoming_news) - set(self.news))
         self.news = incoming_news
