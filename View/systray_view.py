@@ -21,7 +21,7 @@ class SystrayView:
             return lambda _ : open_link()
 
         news_menu_items = []
-        for news_index in range(self.conf.systray_news):
+        for news_index in range(self.conf.displayed_news):
             news_menu_items.append(
                     pystray.MenuItem(news_list[news_index].get_short_title(), create_menu_item(news_list[news_index]))
                 )
@@ -34,6 +34,7 @@ class SystrayView:
         )
 
     def update_menu(self, controller):
+        self.conf.load()
         self.create_menu(controller)
         self.icon.update_menu()
 

@@ -9,19 +9,22 @@ class NewsController:
         self.view = view
 
     def get_news(self):
-        if len(self.model.news) == 0 or len(self.model.news) < self.model.conf.systray_news:
+        if len(self.model.news) == 0 or len(self.model.news) < self.model.conf.displayed_news:
             self.update_news()
         return self.model.news
 
-    def update_news(self):
+    def update_news(self, auto=False):
         try:
             diff = self.model.update_news()
             self.model.save_news()
-            notify_news(diff)
+            if auto == False:
+                notify_news(diff)
+            elif diff > 0:
+                notify_news(diff)
+            self.view.update_menu(self)
         except:
-            notify_error("Error al obtener las noticias")
+            notify_error("No se pudo sincronizar")
             return []
-        self.view.update_menu(self)
 
     def run(self):
         self.view.create_menu(self)

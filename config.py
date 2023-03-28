@@ -1,33 +1,25 @@
 import json
 import sys
 import os
-from datetime import datetime
 
 class Config:
 
     def __init__(self):
-        if not os.path.exists("data"):
-            dir_path = os.path.join("data")
-            os.mkdir(dir_path)
-        self.config_path = os.path.join("data", "config.json")
-        self.current_time = datetime.now().strftime("%H:%M")
-        try:
-            self.base_path = sys._MEIPASS
-        except Exception:
-            self.base_path = os.path.abspath(".")
+        self.dir_name = self.__create_dir_if_no_exists()
+        self.config_path = os.path.join(self.dir_name, "config.json")
+        self.base_path = self.__get_base_path()
         self.image_path = os.path.join(self.base_path, 'assets', 'logo.png')
+        self.domain = "https://sistemas.unmsm.edu.pe"
+        self.path = "/site/index.php"
+        self.url = self.domain + self.path
         self.load()
 
     def load(self):
         try:
             with open(self.config_path, 'r') as f:
                 data = json.load(f)
-            self.domain = data["page"]["domain"]
-            self.path = data["page"]["path"]
-            self.url = self.domain + self.path
-            self.systray_news = int(data["systray_news"])
-            self.data_path = os.path.join("data", data["file_name"] + ".json")
-            self.time = data['time']
+            self.displayed_news = self.__get_displayed_news(int(data['displayed_news']))
+            self.data_path = os.path.join(self.dir_name, data["file_name"] + ".json")
         except:
             self.save()
             with open(self.config_path, 'r') as f:
@@ -36,11 +28,24 @@ class Config:
     def save(self):
         with open(self.config_path, 'w') as f:
             json.dump( {
-                "page": {
-                    "domain": "https://sistemas.unmsm.edu.pe",
-                    "path": "/site/index.php"
-                },
-                "systray_news": 5,
+                "displayed_news": 5,
                 "file_name": "data",
-                "time": self.current_time
             } , f)
+
+    def __create_dir_if_no_exists(self):
+        dir_name = "resources"
+        if not os.path.exists(dir_name):
+            dir_path = os.path.join(dir_name)
+            os.mkdir(dir_path)
+        return dir_name
+    
+    def __get_base_path(self):
+        try:
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath(".")
+        return base_path
+
+    def __get_displayed_news(self, quantity: int):
+        return quantity if 0 <= quantity <= 15 else 0
+
