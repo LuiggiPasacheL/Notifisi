@@ -30,6 +30,7 @@ class SystrayView:
             pystray.MenuItem("Abrir Noticias", lambda _ : webbrowser.open(self.conf.url + '#tns1-item1')),
             pystray.MenuItem("Noticias", pystray.Menu(*news_menu_items)),
             pystray.MenuItem("Recargar Noticias", lambda _ : controller.update_news()),
+            pystray.MenuItem("Abrir configuración", lambda _ : controller.open_config()),
             pystray.MenuItem("Salir", lambda _ : self.icon.stop())
         )
 

@@ -1,6 +1,8 @@
 from Model.Storage import Storage
 from Utils.notifier import notify_error, notify_news
 from View.systray_view import SystrayView
+import os
+import sys
 
 class NewsController:
 
@@ -12,6 +14,15 @@ class NewsController:
         if len(self.model.news) == 0 or len(self.model.news) < self.model.conf.displayed_news:
             self.update_news()
         return self.model.news
+    
+    def open_config(self):
+        path = self.model.conf.config_path
+        if sys.platform.startswith('darwin') or sys.platform.startswith('linux'):
+            os.system('open ' + path)
+        elif sys.platform.startswith('win'):
+            os.system('start ' + path)
+        else:
+            print("No se pudo determinar el sistema operativo.")
 
     def update_news(self, auto=False):
         try:
