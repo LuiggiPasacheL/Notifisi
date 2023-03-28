@@ -47,5 +47,10 @@ class Config:
         return base_path
 
     def __get_displayed_news(self, quantity: int):
-        return quantity if 0 <= quantity <= 15 else 0
+        if quantity <= 0:
+            return 1
+        elif quantity > 15:
+            return 15
+        else:
+            return quantity
 

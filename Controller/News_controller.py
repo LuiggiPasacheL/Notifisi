@@ -36,7 +36,6 @@ class NewsController:
             self.view.update_menu(self)
         except:
             notify_error("No se pudo sincronizar")
-            return []
 
     def run(self):
         self.view.create_menu(self)
