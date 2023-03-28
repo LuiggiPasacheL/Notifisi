@@ -15,6 +15,7 @@ class NewsController:
 
     def update_news(self, auto=False):
         try:
+            self.model.conf.load()
             diff = self.model.update_news()
             self.model.save_news()
             if auto == False:

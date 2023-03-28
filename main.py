@@ -11,8 +11,8 @@ def main():
     storage = Storage(conf)
     news_controller = NewsController(systray_view, storage)
 
-    news_controller.run()
     news_controller.update_news(auto=True)
+    news_controller.run()
 
 if __name__ == '__main__':
     main()

@@ -34,7 +34,6 @@ class SystrayView:
         )
 
     def update_menu(self, controller):
-        self.conf.load()
         self.create_menu(controller)
         self.icon.update_menu()
 
