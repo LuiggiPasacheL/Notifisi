@@ -45,19 +45,27 @@ class Storage:
         result = []
 
         for title, description, link in zip(titles, descriptions, links):
-            news = News(title, description, link)
+            news = News(title, description, self.__complete_link(link))
             result.append(news)
 
         return result
 
+    def __complete_link(self, link):
+        link_striped = link.strip()
+        if not self.conf.domain in link_striped:
+            return self.conf.domain + link_striped
+        else:
+            return link_striped
+
     def __get_info(self, html):
         soup = BeautifulSoup(html, 'html.parser')
 
-        news_tags = soup.find_all('div', 'mfp_carousel_item')
+        news_tags = soup.select(self.conf.queryselectors['cards'])
 
-        titles = [ news_tag.div.h4.a.string for news_tag in news_tags]
-        descriptions = [ news_tag.div.p.string for news_tag in news_tags ]
-        links = [ self.conf.domain + news_tag.div.h4.a['href'] for news_tag in news_tags]
+        titles = [ news_tag.select_one(self.conf.queryselectors['titles']).get_text() for news_tag in news_tags ]
+        descriptions = [ news_tag.select_one(self.conf.queryselectors['descriptions']).get_text() for news_tag in news_tags ]
+        links = [ news_tag.select_one(self.conf.queryselectors['links'])['href'] for news_tag in news_tags ]
 
         return titles, descriptions, links
+
 
