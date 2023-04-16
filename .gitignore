@@ -4,3 +4,5 @@ data/
 resources/
 dist/
 build/
+.scannerwork/*
+*.ps1
