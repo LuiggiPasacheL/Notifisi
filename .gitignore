@@ -5,3 +5,6 @@ resources/
 dist/
 build/
 .scannerwork/*
+*.bat
+*.ps1
+*.sh
