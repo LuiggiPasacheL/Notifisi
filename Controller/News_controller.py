@@ -11,8 +11,6 @@ class NewsController:
         self.view = view
 
     def get_news(self):
-        if len(self.model.news) == 0 or len(self.model.news) < self.model.conf.displayed_news:
-            self.update_news()
         return self.model.news
     
     def open_config(self):
@@ -22,7 +20,7 @@ class NewsController:
         elif sys.platform.startswith('win'):
             os.system('start ' + path)
         else:
-            print("No se pudo determinar el sistema operativo.")
+            raise Exception("No se puede abrir en este sistema operativo")
 
     def update_news(self, auto=False):
         try:
@@ -34,8 +32,8 @@ class NewsController:
             elif diff > 0:
                 notify_news(diff)
             self.view.update_menu(self)
-        except:
-            notify_error("No se pudo sincronizar")
+        except Exception as e:
+            notify_error(str(e))
 
     def run(self):
         self.view.create_menu(self)
