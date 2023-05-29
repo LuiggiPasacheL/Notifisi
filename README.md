@@ -25,42 +25,42 @@ Los pasos para cambiar de configuración a otra facultad de pueden ver en [ejemp
 ## Compilación
 
 ### Crear entorno virtual
-    ```ps1
-    python -m venv venv
-    ```
+```ps1
+python -m venv venv
+```
 
 ### Ingresar al entorno virtual
 
-    Windows:
+Windows:
 
-    ```ps1
-    . .\venv\Scripts\activate
-    ```
+```ps1
+. .\venv\Scripts\activate
+```
     
-    Linux:
+Linux:
 
-    ```sh
-    source venv/bin/activate
-    ```
+```sh
+source venv/bin/activate
+```
 
 ### Instalar dependencias
 
-    ```ps1
-    pip install -r requirements.txt
-    ```
+```ps1
+pip install -r requirements.txt
+```
 
 ### Compilar
 
-    Windows:
+Windows:
 
-    ```ps1
-    pyinstaller --windowed --add-data "assets/logo.png;assets" --onefile --icon ./assets/logo.png --name Notifisi main.py
-    ```
-    Linux:
+```ps1
+pyinstaller --windowed --add-data "assets/logo.png;assets" --onefile --icon ./assets/logo.png --name Notifisi main.py
+```
+Linux:
 
-    ```sh
-    pyinstaller --windowed --add-data "assets/logo.png:assets" --onefile --icon ./assets/logo.png --name Notifisi main.py
-    ```
+```sh
+pyinstaller --windowed --add-data "assets/logo.png:assets" --onefile --icon ./assets/logo.png --name Notifisi main.py
+```
 
 - Buscar ejecutable en la carpeta dist generada
 
