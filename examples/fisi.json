@@ -1,0 +1,14 @@
+{
+    "page": {
+        "domain": "https://sistemas.unmsm.edu.pe",
+        "path": "/site/index.php",
+        "queryselectors": {
+            "cards": ".mfp_carousel_item,.tns-item,.tns-slide-active",
+            "titles": "h4.mfp_carousel_title",
+            "descriptions": "p.mfp_carousel_introtext",
+            "links": "h4.mfp_carousel_title>a"
+        }
+    },
+    "displayed_news": 5,
+    "file_name": "data"
+}

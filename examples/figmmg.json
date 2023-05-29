@@ -1,0 +1,14 @@
+{
+    "page": {
+        "domain": "https://figmmg.unmsm.edu.pe/",
+        "path": "/noticias/",
+        "queryselectors": {
+            "cards": "div.gdlr-core-blog-full-frame",
+            "titles": "h3.gdlr-core-blog-title",
+            "descriptions": "div.gdlr-core-blog-content",
+            "links": "h3.gdlr-core-blog-title>a"
+        }
+    },
+    "displayed_news": 10,
+    "file_name": "data"
+}
