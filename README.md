@@ -13,6 +13,10 @@ O también puedes utilizar el ejecutable ```Notifisi.bat``` que se encuentra en 
 Es recomendable añadir un acceso directo al ejecutable, .bat o .exe, a los programas de inicio.
 En windows: ```C:\Users\Username\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup```
 
+## Cambio de facultad
+
+Los pasos para cambiar de configuración a otra facultad de pueden ver en [ejemplos](examples/ejemplos.md)
+
 ## Requerimientos
 
 - Python 3.10+

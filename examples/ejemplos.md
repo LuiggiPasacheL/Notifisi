@@ -1,11 +1,14 @@
 <h1>Ejemplos para otras facultades</h1>
 
 # Uso
-Se puede modificar la configuración del programa para que reciba noticias de páginas de otras facultades
-1. Reemplaza el contenido del archivo `config.json` generado en la carpeta `resources` con el contenido del archivo de ejemplo.
-2. Recargar las noticias en el ícono de la bandeja del sistema (botón "Recargar Noticias"). 
 
-# Ejemplos
+Se puede modificar la configuración del programa para que reciba noticias de páginas de otras facultades
+1. Abre la configuración con el ícono del sistema (botón "Abrir configuración").
+2. Cambia el contenido de la configuración por el contenido de algún archivo de [ejemplo](#plantillas-de-configuración).
+3. Recargar las noticias en el ícono de la bandeja del sistema (botón "Recargar Noticias"). 
+
+# Plantillas de configuración
+
 - [fisi](fisi.json)
 - [figmmg](figmmg.json)
 
